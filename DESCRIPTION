@@ -1,25 +1,38 @@
 Package: LDAvis
-Title: Interactive visualization of topics models
-Version: 0.1
-Authors@R: c(person("Carson", "Sievert", role = "aut", email =
-    "cpsievert1@gmail.com"), person("Kenny", "Shirley", role = c("aut", "cre"),
-    email = "kshirley@research.att.com"))
-Description: Interactive visualization of topics models using shiny and D3.
+Title: Interactive Visualization of Topic Models
+Version: 0.3.5
+Authors@R: c(
+   person("Carson", "Sievert", role = c("aut", "cre"), email = "cpsievert1@gmail.com", comment = c(ORCID = "0000-0002-4958-2844")), 
+   person("Kenny", "Shirley", role = "aut", email = "kshirley@research.att.com"), 
+   person("Christopher", "Baker", role = "ctb", email = "chriscrewbaker@gmail.com")
+   )
+Description: Tools to create an interactive web-based visualization of a
+    topic model that has been fit to a corpus of text data using
+    Latent Dirichlet Allocation (LDA). Given the estimated parameters of
+    the topic model, it computes various summary statistics as input to
+    an interactive visualization built with 'D3.js' that is accessed via
+    a browser. The goal is to help users interpret the topics in their
+    'LDA' topic model.
 Depends:
-    R (>= 2.15)
+    R (>= 3.4.0)
 Imports:
-    shiny (>= 0.10),
-    MASS,
     proxy,
-    plyr (>= 1.8.1),
-    reshape2,
-    RJSONIO
-License: MIT
+    RJSONIO,
+    parallel
+License: MIT + file LICENSE
 Suggests:
     mallet,
+    lda,
     topicmodels,
+    gistr (>= 0.0.8.99),
     servr,
-    gistr,
+    shiny,
     knitr,
-    rmarkdown
-Roxygen: list(wrap = TRUE)
+    rmarkdown,
+    digest,
+    htmltools
+LazyData: true
+VignetteBuilder: knitr
+URL: https://github.com/cpsievert/LDAvis
+BugReports: https://github.com/cpsievert/LDAvis/issues
+RoxygenNote: 6.0.1

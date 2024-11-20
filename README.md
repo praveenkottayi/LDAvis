@@ -1,36 +1,79 @@
 ## LDAvis
 
+[![Build Status](https://travis-ci.org/cpsievert/LDAvis.png?branch=master)](https://travis-ci.org/cpsievert/LDAvis)
+
 R package for interactive topic model visualization.
+
+![LDAvis icon](http://www.kennyshirley.com/figures/ldavis-pic.png)
+
+**LDAvis** is designed to help users interpret the topics in a topic model that has been fit to a corpus of text data. The package extracts information from a fitted LDA topic model to inform an interactive web-based visualization.
 
 ### Installing the package
 
-If you are familiar with <a href='http://cran.r-project.org/web/packages/devtools/index.html' target='_blank'>devtools</a>, it is easiest to install LDAvis this way:
+* Stable version on CRAN:
 
-`devtools::install_github("cpsievert/LDAvis")`
+```r
+install.packages("LDAvis")
+```
 
-Alternatively, you can decompress the zip ball or tar ball and run `R CMD INSTALL` on it.
+* Development version on GitHub (with [devtools](https://cran.r-project.org/package=devtools)):
 
-### Using the package
+```r
+devtools::install_github("cpsievert/LDAvis")
+```
 
-Once installed and loaded, there are two 'main' help pages that implement the two main approaches of LDAvis:
+### Getting started
 
-* `?runShiny`: demonstrates some <a href='http://shiny.rstudio.com/' target='_blank'>shiny</a>-based examples.
+Once installed, we recommend a visit to the main help page:
 
-* `?createJSON`: demonstrates some static web page examples.
+```r
+library(LDAvis)
+help(createJSON, package = "LDAvis")
+```
 
-### LDAvis demos
+The documentation and example on the bottom of that page should provide a quick sense of how to create (and share) your own visualizations. If you want more details about the technical specifications of the visualization, see the vignette:
 
-* <a href='http://www2.research.att.com/~kshirley/lda/index.html' target='_blank'>Associated Press demo</a>: This webpage contains the raw html version of LDAvis, and shows a 40-topic model of news articles from the Associated Press.
+```r
+vignette("details", package = "LDAvis")
+```
 
-* <a href='http://cpsievert.github.io/LDAvis/newsgroup/newsgroup.html' target='_blank'>Embed multiple visualizations into a static HTML page</a> via [knitr](https://github.com/yihui/knitr/) and [rmarkdown](https://github.com/rstudio/rmarkdown). See the [examples folder](https://github.com/cpsievert/LDAvis/tree/master/inst/examples) to see the source code.
+Note that **LDAvis** itself does not provide facilities for *fitting* the model (only *visualizing* a fitted model). If you want to perform LDA in R, there are several packages, including [mallet](https://cran.r-project.org/package=mallet), [lda](https://cran.r-project.org/package=lda), and [topicmodels](https://cran.r-project.org/package=topicmodels).
 
-* <a href='http://cpsievert.github.io/LDAvis/reviews/reviews.html' target='_blank'> Using mallet and LDAvis to model and visualize movie reviews. </a>
+If you want to perform LDA with the R package **lda** and visualize the result with **LDAvis**, our example of a [20-topic model fit to 2,000 movie reviews](https://ldavis.cpsievert.me/reviews/reviews.html) may be helpful.
 
+**LDAvis** does not limit you to topic modeling facilities in R. If you use other tools ([MALLET](http://mallet.cs.umass.edu/) and [gensim](https://radimrehurek.com/gensim/) are popular), we recommend that you visit our [Twenty Newsgroups](https://ldavis.cpsievert.me/newsgroup/newsgroup.html) example to help quickly understand what components **LDAvis** will need.
 
-* <a href='http://ropensci.org/blog/2014/04/16/topic-modeling-in-R/' target='_blank'>Elife abstracts</a>: A blog post by Carson about fitting a topic model to abstract from the open-access journal eLife. The Shiny version of LDAvis is embedded into this webpage.
+### Sharing a Visualization
 
+To share a visualization that you created using **LDAvis**, you can encode the state of the visualization into the URL by appending a string of the form:
 
+"#topic=k&lambda=l&term=s"
 
-### Explanation and documentation:
+to the end of the URL, where "k", "l", and "s" are strings indicating the desired values of the selected topic, the value of lambda, and the selected term, respectively. For more details, see the last section of our [Movie Reviews example](https://ldavis.cpsievert.me/reviews/reviews.html), or for a quick example, see the link here:
 
-To read about the methodology behind LDAvis, please see <a href='http://nlp.stanford.edu/events/illvi2014/papers/sievert-illvi2014.pdf' target='_blank'>our paper</a>, which will be presented at the <a href='http://nlp.stanford.edu/events/illvi2014/' target='_blank'>2014 ACL Workshop on Interactive Language Learning, Visualization, and Interfaces</a> in Baltimore on June 27, 2014.
+<https://ldavis.cpsievert.me/reviews/vis/#topic=3&lambda=0.6&term=cop>
+
+### Video demos
+
+* [Visualizing & Exploring the Twenty Newsgroup Data](http://stat-graphics.org/movies/ldavis.html)
+* [Visualizing Topic Models demo with Hacker News Corpus](https://www.youtube.com/watch?v=tGxW2BzC_DU)
+  * [Notebook w/Visualization](http://nbviewer.ipython.org/github/bmabey/hacker_news_topic_modelling/blob/master/HN%20Topic%20Model%20Talk.ipynb)
+  * [Slide deck](https://speakerdeck.com/bmabey/visualizing-topic-models)
+
+### More documentation
+
+To read about the methodology behind LDAvis, see [our paper](http://nlp.stanford.edu/events/illvi2014/papers/sievert-illvi2014.pdf), which we presented at the [2014 ACL Workshop on Interactive Language Learning, Visualization, and Interfaces](http://nlp.stanford.edu/events/illvi2014/) in Baltimore on June 27, 2014.
+
+### Additional data
+
+We included one data set in LDAvis, 'TwentyNewsgroups', which consists of a list with 5 elements:
+- phi, a matrix with the topic-term distributions
+- theta, a matrix with the document-topic distributions
+- doc.length, a numeric vector with token counts for each document
+- vocab, a character vector containing the terms
+- term.frequency, a numeric vector of observed term frequencies
+
+We also created a second data-only package called [LDAvisData](https://github.com/cpsievert/LDAvisData) to hold additional example data sets. Currently there are three more examples available there:
+- Movie Reviews (a 20-topic model fit to 2,000 movie reviews)
+- AP (a 40-topic model fit to approximately 2,246 news articles)
+- Jeopardy (a 100-topic model fit to approximately 20,000 Jeopardy questions)
